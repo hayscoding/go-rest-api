@@ -41,6 +41,14 @@ func createItem(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(item) // Show item in response JSON for verification
 }
 
+func updateItem(w http.ResponseWriter, r *http.Request) {
+	w.Header().Set("Content-Type", "application/json")
+
+	params := mux.Vars(r)
+
+	json.NewEncoder(w).Encode(params)
+}
+
 func handleRequests(){
 	// := is the short variable declaration operator
 	// Automatically determines type for variable
@@ -48,6 +56,7 @@ func handleRequests(){
 
 	router.HandleFunc("/", homePage).Methods("GET")
 	router.HandleFunc("/inventory", getInventory).Methods("GET")
+	router.HandleFunc("/inventory/{uid}", updateItem).Methods("GET")
 	router.HandleFunc("/inventory", createItem).Methods("POST")
 
 	log.Fatal(http.ListenAndServe(":8000", router))
