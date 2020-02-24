@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	// Type go get -u github.com/gorilla/mux to install
 	"github.com/gorilla/mux" // Unused packages will create compilation error
 )
 
