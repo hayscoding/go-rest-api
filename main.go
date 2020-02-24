@@ -18,7 +18,7 @@ type Item struct {
 type Inventory []Item
 
 func homePage(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Homepage Endpoint Hit")
+	fmt.Fprintf(w, "Function Called: homePage()")
 }
 
 func getInventory(w http.ResponseWriter, r *http.Request) {
@@ -26,8 +26,12 @@ func getInventory(w http.ResponseWriter, r *http.Request) {
 		Item{Name: "Cheese", Desc: "A fine block of cheese.", Price: 4.99},
 	}
 
-	fmt.Println("Endpoint Called: getInventory()")
+	fmt.Println("Function Called: getInventory()")
 	json.NewEncoder(w).Encode(inventory)
+}
+
+func addItem(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Function Called: addItem()")
 }
 
 func handleRequests(){
@@ -37,6 +41,7 @@ func handleRequests(){
 
 	router.HandleFunc("/", homePage).Methods("GET")
 	router.HandleFunc("/inventory", getInventory).Methods("GET")
+	router.HandleFunc("/inventory", addItem).Methods("POST")
 
 	log.Fatal(http.ListenAndServe(":8000", router))
 }
