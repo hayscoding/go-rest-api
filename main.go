@@ -24,7 +24,7 @@ func homePage(w http.ResponseWriter, r *http.Request) {
 
 func getInventory(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
-	
+
 	inventory := Inventory{
 		Item{UID: "0", Name: "Cheese", Desc: "A fine block of cheese.", Price: 4.99},
 	}
@@ -33,8 +33,8 @@ func getInventory(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(inventory)
 }
 
-func addItem(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Function Called: addItem()")
+func createItem(w http.ResponseWriter, r *http.Request) {
+	fmt.Fprintf(w, "Function Called: createItem()")
 }
 
 func handleRequests(){
@@ -44,7 +44,7 @@ func handleRequests(){
 
 	router.HandleFunc("/", homePage).Methods("GET")
 	router.HandleFunc("/inventory", getInventory).Methods("GET")
-	router.HandleFunc("/inventory", addItem).Methods("POST")
+	router.HandleFunc("/inventory", createItem).Methods("POST")
 
 	log.Fatal(http.ListenAndServe(":8000", router))
 }
