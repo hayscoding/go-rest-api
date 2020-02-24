@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"github.com/gorilla/mux" // Unused packages will create compilation error
 )
 
 func homePage(w http.ResponseWriter, r *http.Request) {
@@ -11,8 +12,13 @@ func homePage(w http.ResponseWriter, r *http.Request) {
 }
 
 func handleRequests(){
-	http.HandleFunc("/", homePage)
-	log.Fatal(http.ListenAndServe(":8000", nil))
+	// := is the short variable declaration operator
+	// Automatically determines type for variable
+	router := mux.NewRouter().StrictSlash(true)
+
+	router.HandleFunc("/", homePage)
+
+	log.Fatal(http.ListenAndServe(":8000", router))
 }
 
 func main() {
