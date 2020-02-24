@@ -16,7 +16,7 @@ func handleRequests(){
 	// Automatically determines type for variable
 	router := mux.NewRouter().StrictSlash(true)
 
-	router.HandleFunc("/", homePage)
+	router.HandleFunc("/", homePage).Methods("GET")
 
 	log.Fatal(http.ListenAndServe(":8000", router))
 }
